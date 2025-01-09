@@ -1,0 +1,19 @@
+<div class="card card-compact bg-base-200 w-96 mx-auto shadow-xl">
+  <div class="card-body flex-col gap-4">
+    <button class="btn mx-auto max-w-fit btn-primary" (click)="toggleModal()">
+      Open modal
+    </button>
+  </div>
+</div>
+
+<dialog id="my_modal_1" class="modal" [open]="isModalVisible()">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Click the button below to close</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn btn-primary" (click)="toggleModal()">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
