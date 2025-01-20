@@ -4,26 +4,46 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'weather-app-resource',
+    redirectTo: 'weather-info-simple',
   },
   {
-    path: 'weather-app-resource',
+    path: 'weather-info-simple',
     loadComponent: () =>
       import('./weather-info-simple/weather-info-simple.component').then(
-        (m) => m.WeatherInfoSimpleComponent
+        (m) => m.WeatherInfoComponent
       ),
     data: {
-      name: 'resource() example - Simple',
+      name: 'resource() basic example',
     },
   },
   {
-    path: 'weather-app-resource-with-deps',
+    path: 'weather-info-on-demand',
+    loadComponent: () =>
+      import('./weather-info-on-demand/weather-info-on-demand.component').then(
+        (m) => m.WeatherInfoComponent
+      ),
+    data: {
+      name: 'resource() on-demand',
+    },
+  },
+  {
+    path: 'weather-info-with-error',
+    loadComponent: () =>
+      import(
+        './weather-info-with-error/weather-info-with-error.component'
+      ).then((m) => m.WeatherInfoComponent),
+    data: {
+      name: 'resource() with error',
+    },
+  },
+  {
+    path: 'weather-info-multi-city',
     loadComponent: () =>
       import(
         './weather-info-multiple-cities/weather-info-multiple-cities.component'
-      ).then((m) => m.WeatherInfoMultipleCitiesComponent),
+      ).then((m) => m.WeatherInfoComponent),
     data: {
-      name: 'resource() example - with deps',
+      name: 'resource() multiple cities',
     },
   },
 ];

@@ -1,54 +1,23 @@
 import { Component, resource, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-type City = 'Stockholm' | 'Milan';
-
 interface WeatherData {
   temperature: number;
   condition: string;
   icon: string;
-  city?: City;
 }
 
 type WeatherRequestState = 'idle' | 'ready' | 'simulateError';
 
-type WeatherResourceConfig = {
-  requestState: WeatherRequestState;
-  isMultiCityMode: boolean;
-  selectedCity: City;
-};
-
 @Component({
   selector: 'app-weather-info',
-  imports: [FormsModule],
   template: `
     <div class="card bg-base-200 w-96 shadow-xl mx-auto">
       <div class="card-body flex flex-col items-center gap-4">
-        <div class="form-control w-full">
-          <label class="label cursor-pointer">
-            <span class="label-text">Multicity</span>
-            <input
-              (ngModelChange)="getWeatherInfo()"
-              [(ngModel)]="isMultiCityMode"
-              type="checkbox"
-              class="toggle toggle-primary"
-            />
-          </label>
-        </div>
-        @if (isMultiCityMode()) {
-        <select [(ngModel)]="selectedCity" class="select select-primary w-full">
-          @for(city of cities; track city) {
-          <option [value]="city">{{ city }}</option>
-          }
-        </select>
-        } @else {
         <button
           class="btn btn-block btn-primary btn-outline"
           (click)="getWeatherInfo()"
         >
-          Get Weather Info
+          Fetch Weather
         </button>
-        }
         <button
           class="btn btn-block btn-error btn-outline"
           (click)="getWeatherInfoWithError()"
@@ -93,34 +62,19 @@ type WeatherResourceConfig = {
 })
 export class WeatherInfoComponent {
   weatherRequestState = signal<WeatherRequestState>('idle');
-  isMultiCityMode = signal<boolean>(false);
-  cities: City[] = ['Stockholm', 'Milan'];
-  selectedCity = signal<City>(this.cities[0]);
-  weatherResource = resource<
-    WeatherData | undefined,
-    WeatherResourceConfig | undefined
-  >({
+  weatherResource = resource<WeatherData, WeatherRequestState | undefined>({
     request: () => {
       if (this.weatherRequestState() === 'idle') {
         return undefined;
       }
-      return {
-        requestState: this.weatherRequestState(),
-        isMultiCityMode: this.isMultiCityMode(),
-        selectedCity: this.selectedCity(),
-      };
+      return this.weatherRequestState();
     },
-    loader: async ({ abortSignal, request }) => {
-      if (!request) {
-        return undefined;
-      }
-      const { requestState, isMultiCityMode, selectedCity } = request;
+    loader: async ({ abortSignal, request: requestState }) => {
       const response = await new Promise<Response>((resolve) => {
         setTimeout(() => {
-          const url = isMultiCityMode
-            ? 'assets/weather-multi.json'
-            : 'assets/weather.json';
-          fetch(url, { signal: abortSignal }).then((r) => resolve(r));
+          fetch('assets/weather.json', { signal: abortSignal }).then((r) =>
+            resolve(r)
+          );
         }, 1500);
       });
       if (!response.ok) {
@@ -130,15 +84,6 @@ export class WeatherInfoComponent {
         throw new Error('Something went wrong');
       }
       const data = await response.json();
-      if (isMultiCityMode) {
-        const weatherInfo = (data as WeatherData[]).find(
-          (info) => info.city === selectedCity
-        );
-        if (!weatherInfo) {
-          throw new Error('Weather info not found');
-        }
-        return weatherInfo;
-      }
       return data as WeatherData;
     },
   });

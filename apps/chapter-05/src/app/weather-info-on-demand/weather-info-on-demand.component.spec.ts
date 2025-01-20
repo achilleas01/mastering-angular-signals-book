@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WeatherInfoComponent } from './weather-info-multiple-cities.component';
+import { WeatherInfoComponent } from './weather-info-on-demand.component';
 
-describe('WeatherInfoComponent', () => {
+describe('WeatherInfoOnDemandComponent', () => {
   let component: WeatherInfoComponent;
   let fixture: ComponentFixture<WeatherInfoComponent>;
 

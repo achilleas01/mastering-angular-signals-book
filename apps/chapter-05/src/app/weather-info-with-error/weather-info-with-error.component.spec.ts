@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WeatherInfoMultipleCitiesComponent } from './weather-info-multiple-cities.component';
+import { WeatherInfoComponent } from './weather-info-with-error.component';
 
 describe('WeatherInfoComponent', () => {
-  let component: WeatherInfoMultipleCitiesComponent;
-  let fixture: ComponentFixture<WeatherInfoMultipleCitiesComponent>;
+  let component: WeatherInfoComponent;
+  let fixture: ComponentFixture<WeatherInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeatherInfoMultipleCitiesComponent],
+      imports: [WeatherInfoComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WeatherInfoMultipleCitiesComponent);
+    fixture = TestBed.createComponent(WeatherInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
