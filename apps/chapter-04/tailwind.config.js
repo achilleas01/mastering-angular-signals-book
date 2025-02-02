@@ -1,14 +1,7 @@
-const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
-const { join } = require('path');
+const baseConfig = require('../../tailwind.base.config.js');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [require('daisyui')],
+  ...baseConfig,
+  // You can add or override specific configurations here if needed
 };
