@@ -1,7 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AppLink } from '../../types/links.type';
+import { DrawerService } from '../../services/drawer.service';
+export type AppLink = {
+  label: string;
+  link: string;
+};
 
 @Component({
   selector: 'lib-header',
@@ -12,4 +16,5 @@ import { AppLink } from '../../types/links.type';
 export class HeaderComponent {
   title = input.required<string>();
   links = input<AppLink[]>([]);
+  drawerService = inject(DrawerService);
 }

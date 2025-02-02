@@ -1,5 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Route, RouterLink, RouterLinkActive } from '@angular/router';
+import { DrawerService } from '../../services/drawer.service';
 
 @Component({
   selector: 'lib-drawer',
@@ -9,4 +10,6 @@ import { Route, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class DrawerComponent {
   links = input.required<Route[]>();
+  drawerService = inject(DrawerService);
+  isOpen = this.drawerService.isDrawerOpen;
 }
