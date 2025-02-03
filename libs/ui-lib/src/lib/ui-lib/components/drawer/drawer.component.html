@@ -9,19 +9,22 @@
       aria-label="close sidebar"
       class="drawer-overlay"
     ></label>
-    <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-      @for (item of links(); track $index) {
-      <li>
-        <a
-          (click)="drawerService.toggleDrawer()"
-          routerLink="{{ item.path }}"
-          routerLinkActive="active"
-          >{{
+    <section class="bg-base-200 text-base-content min-h-full w-80 p-4">
+      <h2 class="p-2 text-xl">{{ title() }}</h2>
+      <ul class="menu gap-2">
+        @for (item of validLinks(); track $index) {
+        <li>
+          <a
+            (click)="closeOnLinkClick() && drawerService.toggleDrawer()"
+            routerLink="{{ item.path }}"
+            routerLinkActive="active"
+            >{{
           item.data?.['name'] || item.path
-          }}</a
-        >
-      </li>
-      }
-    </ul>
+            }}</a
+          >
+        </li>
+        }
+      </ul>
+    </section>
   </div>
 </div>

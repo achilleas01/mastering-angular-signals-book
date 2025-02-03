@@ -1,0 +1,34 @@
+import { Component, computed, signal } from '@angular/core';
+import { SearchBoxComponent } from '@modern-angular-signals-book/ui-lib';
+import { randProduct } from '@ngneat/falso';
+import { ProductsListComponent } from '../../../../../libs/ui-lib/src/lib/ui-lib/components/products-list/products-list.component';
+
+@Component({
+  selector: 'app-two-way-binding',
+  imports: [SearchBoxComponent, ProductsListComponent],
+  template: `
+    <lib-search-box [(searchQuery)]="searchTerm" />
+    <lib-products-list [products]="filteredProducts()" />
+  `,
+  styles: ``,
+})
+export class TwoWayBindingComponent {
+  searchTerm = signal('');
+  products = signal(
+    randProduct({
+      length: 10,
+    }).map((prod) => ({
+      ...prod,
+      image: `${prod.image}?ts=${self.crypto.randomUUID()}`,
+    }))
+  );
+  filteredProducts = computed(() => {
+    return this.products().filter((prod) => {
+      // filter by title or description
+      const props = [prod.title, prod.description];
+      return props.some((prop) => {
+        return prop.toLowerCase().includes(this.searchTerm().toLowerCase());
+      });
+    });
+  });
+}

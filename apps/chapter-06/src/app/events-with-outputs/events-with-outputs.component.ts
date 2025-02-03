@@ -1,21 +1,34 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NotificationPanelComponent } from '../components/notification-panel/notification-panel.component';
+import { Component, computed, signal } from '@angular/core';
+import {
+  DUMMY_NOTIFICATIONS,
+  NotificationPanelComponent,
+} from '@modern-angular-signals-book/ui-lib';
 
 @Component({
   selector: 'app-events-with-outputs',
-  imports: [CommonModule, NotificationPanelComponent],
+  imports: [NotificationPanelComponent],
   template: `
-    <app-notification-panel
-      (notificationsRead)="markSignalsAsread()"
+    <lib-notification-panel
+      [notifications]="notifications()"
+      (notificationsRead)="markNotificationsAsRead()"
       [notificationsCount]="unreadNotificationsCount()"
     />
   `,
   styles: ``,
 })
 export class EventsWithOutputsComponent {
-  unreadNotificationsCount = signal(105);
-  markSignalsAsread() {
-    this.unreadNotificationsCount.set(0);
+  notifications = signal(DUMMY_NOTIFICATIONS);
+  unreadNotificationsCount = computed(() => {
+    return this.notifications().filter((noti) => !noti.read).length;
+  });
+  markNotificationsAsRead() {
+    this.notifications.update((notifications) =>
+      notifications.map((noti) => {
+        return {
+          ...noti,
+          read: true,
+        };
+      })
+    );
   }
 }
