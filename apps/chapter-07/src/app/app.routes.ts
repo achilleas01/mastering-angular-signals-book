@@ -4,7 +4,17 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/obs-to-signals',
+    redirectTo: '/dashboard-migration',
+  },
+  {
+    path: 'dashboard-migration',
+    loadComponent: () =>
+      import('./dashboard-migration/dashboard-migration.component').then(
+        (m) => m.DashboardMigrationComponent
+      ),
+    data: {
+      name: 'Dashboard Migration',
+    },
   },
   {
     path: 'obs-to-signals',
@@ -14,6 +24,16 @@ export const appRoutes: Route[] = [
       ),
     data: {
       name: 'Observables to Signals',
+    },
+  },
+  {
+    path: 'signals-to-obs',
+    loadComponent: () =>
+      import('./signals-to-observables/signals-to-observables.component').then(
+        (m) => m.SignalsToObservablesComponent
+      ),
+    data: {
+      name: 'Signals to Observables',
     },
   },
 ];
