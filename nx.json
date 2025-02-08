@@ -82,7 +82,9 @@
       "unitTestRunner": "vitest"
     },
     "@nx/angular:component": {
-      "style": "scss"
+      "style": "scss",
+      "inlineStyle": true,
+      "inlineTemplate": true
     }
   }
 }

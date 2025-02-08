@@ -1,0 +1,9 @@
+{
+  "name": "chapter-07-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/chapter-07-e2e/src",
+  "implicitDependencies": ["chapter-07"],
+  "// targets": "to see all targets run: nx show project chapter-07-e2e --web",
+  "targets": {}
+}

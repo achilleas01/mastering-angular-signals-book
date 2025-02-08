@@ -56,4 +56,15 @@ export const appRoutes: Route[] = [
       return import('./cart/cart.component').then((m) => m.CartComponent);
     },
   },
+  {
+    path: 'dynamic-list',
+    loadComponent: () => {
+      return import('./dynamic-list/dynamic-list.component').then(
+        (m) => m.DynamicListComponent
+      );
+    },
+    data: {
+      name: 'Dynamic Element Refs',
+    },
+  },
 ];
