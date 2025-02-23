@@ -5,96 +5,114 @@ import {
   tick,
 } from '@angular/core/testing';
 import { WeatherInfoComponent } from './weather-info.component';
-import { WeatherService } from './weather.service';
-import { Observable, of, throwError } from 'rxjs';
-
-interface WeatherData {
-  temperature: number;
-  condition: string;
-  icon: string;
-}
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 describe('WeatherInfoComponent', () => {
   let component: WeatherInfoComponent;
   let fixture: ComponentFixture<WeatherInfoComponent>;
-  let weatherServiceSpy: {
-    getWeather: jest.MockedFunction<() => Observable<WeatherData>>;
-  };
+
+  let httpTesting: HttpTestingController;
 
   beforeEach(async () => {
-    const spy = {
-      getWeather: jest.fn<Observable<WeatherData>, []>(),
-    };
-
     await TestBed.configureTestingModule({
       imports: [WeatherInfoComponent],
-      providers: [{ provide: WeatherService, useValue: spy }],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
-    weatherServiceSpy = TestBed.inject(WeatherService) as unknown as typeof spy;
+    httpTesting = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(WeatherInfoComponent);
     component = fixture.componentInstance;
+  });
+
+  afterEach(() => {
+    // Verify that none of the tests make any extra HTTP requests.
+    httpTesting.verify();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show loading state initially', fakeAsync(() => {
-    weatherServiceSpy.getWeather.mockReturnValue(
-      of({
-        temperature: 25,
-        condition: 'Sunny',
-        icon: 'sunny.png',
-      })
-    );
+  it('should call getWeather on initialization', fakeAsync(() => {
+    const getWeather = jest
+      .spyOn(component.weatherService, 'getWeather')
+      .mockImplementation(() => {
+        return of({
+          temperature: 25,
+          condition: 'Sunny',
+          icon: 'assets/sunny.png',
+        });
+      });
 
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Loading...');
+    expect(getWeather).toHaveBeenCalled();
+  }));
+
+  it('should show loading state initially', fakeAsync(() => {
+    fixture.detectChanges();
+    tick(); // flush the setTimeout()
+    const req = httpTesting.expectOne(
+      'assets/weather.json',
+      'Request to load the weather info'
+    );
+    req.flush({
+      temperature: 28,
+      condition: 'Sunny',
+      icon: 'assets/sunny.png',
+    });
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="weatherLoader"]')
+    ).toBeTruthy();
   }));
 
   it('should display weather data after loading', fakeAsync(() => {
-    weatherServiceSpy.getWeather.mockReturnValue(
-      of({
-        temperature: 25,
-        condition: 'Sunny',
-        icon: 'sunny.png',
-      })
+    fixture.detectChanges();
+    const req = httpTesting.expectOne(
+      'assets/weather.json',
+      'Request to load the weather info'
     );
-
+    req.flush({
+      temperature: 25,
+      condition: 'Sunny',
+      icon: 'assets/sunny.png',
+    });
+    tick(1500);
     fixture.detectChanges();
-    tick(500); // Wait for the simulated delay
-    fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain('Temperature: 25°C');
-    expect(fixture.nativeElement.textContent).toContain('Condition: Sunny');
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="weatherLoader"]')
+    ).toBeFalsy();
+
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="weatherTemp"]')
+        .textContent
+    ).toContain('Temperature: 25');
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="weatherCond"]')
+        .textContent
+    ).toContain('Condition: Sunny');
   }));
 
   it('should display error message on error', fakeAsync(() => {
-    const errorMessage = 'Failed to fetch weather';
-    weatherServiceSpy.getWeather.mockReturnValue(
-      throwError(() => new Error(errorMessage))
-    );
+    const errorMessage = 'Could not fetch data';
 
     fixture.detectChanges();
-    tick(500);
+    const req = httpTesting.expectOne(
+      'assets/weather.json',
+      'Request to load the weather info'
+    );
+    req.error(new ProgressEvent('error'));
+    tick(1500);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain(
-      `Error: Error: ${errorMessage}`
-    );
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="weatherError"]')
+        .textContent
+    ).toContain(`Error: ${errorMessage}`);
   }));
-
-  it('should call getWeather on initialization', () => {
-    weatherServiceSpy.getWeather.mockReturnValue(
-      of({
-        temperature: 25,
-        condition: 'Sunny',
-        icon: 'sunny.png',
-      })
-    );
-
-    fixture.detectChanges();
-    expect(weatherServiceSpy.getWeather).toHaveBeenCalled();
-  });
 });

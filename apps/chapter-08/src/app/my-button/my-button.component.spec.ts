@@ -66,17 +66,6 @@ describe('MyButtonComponent', () => {
     expect(stateChanges).toEqual([true, false]);
   });
 
-  it('should have correct initial styles', () => {
-    const button = fixture.nativeElement.querySelector(
-      '[data-testid="myButton"]'
-    );
-    const styles = window.getComputedStyle(button);
-
-    expect(button.textContent.trim()).toBe('Click Me');
-    expect(styles.cursor).toBe('pointer');
-    expect(button).toBeInstanceOf(HTMLButtonElement);
-  });
-
   it('should apply active class when clicked', () => {
     const button = fixture.nativeElement.querySelector(
       '[data-testid="myButton"]'

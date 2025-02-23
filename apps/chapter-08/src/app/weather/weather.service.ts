@@ -16,10 +16,6 @@ export class WeatherService {
 
   getWeather(): Observable<WeatherData> {
     // Simulate an API call with a delayed response
-    return of({
-      temperature: 25,
-      condition: 'Sunny',
-      icon: 'sunny.png',
-    }).pipe(delay(500));
+    return this.http.get<WeatherData>('assets/weather.json').pipe(delay(1500));
   }
 }

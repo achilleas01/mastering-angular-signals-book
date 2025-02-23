@@ -14,9 +14,9 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome chapter-08'
-    );
+    expect(
+      compiled.querySelector('[data-testid="appTitle"]')?.textContent
+    ).toContain('Chapter 8');
   });
 
   it(`should have as title 'chapter-08'`, () => {
