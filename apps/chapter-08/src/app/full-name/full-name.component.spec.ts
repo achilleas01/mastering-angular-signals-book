@@ -24,26 +24,28 @@ describe('FullNameComponent', () => {
   });
 
   it('should update fullName when firstName changes', () => {
-    component.firstName.set('Jane');
+    component.formValues.firstName.set('Jane');
     expect(component.fullName()).toBe('Jane Doe');
   });
 
   it('should update fullName when lastName changes', () => {
-    component.lastName.set('Smith');
+    component.formValues.lastName.set('Smith');
     expect(component.fullName()).toBe('John Smith');
   });
 
   it('should update fullName when both names change', () => {
-    component.firstName.set('Jane');
-    component.lastName.set('Smith');
+    component.formValues.firstName.set('Jane');
+    component.formValues.lastName.set('Smith');
     expect(component.fullName()).toBe('Jane Smith');
   });
 
   it('should reflect changes in the view', () => {
-    component.firstName.set('Jane');
-    component.lastName.set('Smith');
+    component.formValues.firstName.set('Jane');
+    component.formValues.lastName.set('Smith');
     fixture.detectChanges();
-    const element = fixture.nativeElement.querySelector('p');
-    expect(element.textContent.trim()).toBe('Full Name: Jane Smith');
+    const element = fixture.nativeElement.querySelector(
+      '[data-testid="fullName"]'
+    );
+    expect(element.textContent.trim()).toBe('Full name: Jane Smith');
   });
 });

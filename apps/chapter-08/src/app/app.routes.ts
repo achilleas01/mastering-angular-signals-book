@@ -7,6 +7,17 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
   },
   {
+    path: 'counter',
+    loadComponent: () => {
+      return import('./counter/counter.component').then(
+        (m) => m.CounterComponent
+      );
+    },
+    data: {
+      name: 'Counter',
+    },
+  },
+  {
     path: 'weather',
     loadComponent: () => {
       return import('./weather/weather-info.component').then(
@@ -48,17 +59,6 @@ export const appRoutes: Route[] = [
     },
     data: {
       name: 'Full name',
-    },
-  },
-  {
-    path: 'counter',
-    loadComponent: () => {
-      return import('./counter/counter.component').then(
-        (m) => m.CounterComponent
-      );
-    },
-    data: {
-      name: 'Counter',
     },
   },
   {

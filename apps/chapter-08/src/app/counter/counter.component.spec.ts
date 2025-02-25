@@ -34,7 +34,8 @@ describe('CounterComponent', () => {
     expect(component.count()).toBe(0);
   });
 
-  it('should not decrement below 0', () => {
+  it('should not be decremented below 0', () => {
+    expect(component.count()).toBe(0);
     component.decrement();
     expect(component.count()).toBe(0);
   });
@@ -42,7 +43,9 @@ describe('CounterComponent', () => {
   it('should update the view when count changes', () => {
     component.increment();
     fixture.detectChanges();
-    const spanElement = fixture.nativeElement.querySelector('span');
-    expect(spanElement.textContent.trim()).toBe('1');
+    const countValEl = fixture.nativeElement.querySelector(
+      '[data-testid="countValue"]'
+    );
+    expect(countValEl.textContent.trim()).toBe('1');
   });
 });
