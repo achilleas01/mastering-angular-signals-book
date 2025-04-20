@@ -5,6 +5,9 @@ export * from './lib/ui-lib/components/notification-panel/notification-panel.com
 export * from './lib/ui-lib/components/search-box/search-box.component';
 export * from './lib/ui-lib/components/products-list/products-list.component';
 
+// directives
+export * from './lib/ui-lib/directives/theme.directive';
+
 // services
 export * from './lib/ui-lib/services/cart.service';
 

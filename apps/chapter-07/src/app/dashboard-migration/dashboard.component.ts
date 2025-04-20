@@ -1,12 +1,5 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import {
-  interval,
-  switchMap,
-  map,
-  shareReplay,
-  Subject,
-  takeUntil,
-} from 'rxjs';
+import { map, Subject, takeUntil } from 'rxjs';
 import { MetricsService } from './metrics.service';
 import { AsyncPipe } from '@angular/common';
 import { MetricCardComponent } from './metric-card.component';
@@ -36,21 +29,16 @@ export class DashboardComponent implements OnDestroy {
   private metricsService = inject(MetricsService);
   private destroy$ = new Subject<void>();
 
-  metrics$ = interval(2000).pipe(
-    takeUntil(this.destroy$),
-    switchMap(() => this.metricsService.getMetrics()),
-    shareReplay(1)
-  );
+  // Get the shared metrics stream
+  metrics$ = this.metricsService.getMetrics().pipe(takeUntil(this.destroy$));
 
+  // Extract values from metrics
   cpuUsage$ = this.metrics$.pipe(map((m) => m.cpu));
   memoryUsage$ = this.metrics$.pipe(map((m) => m.memory));
 
-  cpuTrend$ = this.cpuUsage$.pipe(
-    switchMap((cpu) => this.metricsService.calculateTrend(cpu, 'cpu'))
-  );
-  memoryTrend$ = this.memoryUsage$.pipe(
-    switchMap((memory) => this.metricsService.calculateTrend(memory, 'memory'))
-  );
+  // Extract trends from metrics
+  cpuTrend$ = this.metrics$.pipe(map((m) => m.trends.cpu));
+  memoryTrend$ = this.metrics$.pipe(map((m) => m.trends.memory));
 
   ngOnDestroy(): void {
     this.destroy$.next();

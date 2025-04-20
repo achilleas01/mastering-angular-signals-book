@@ -10,12 +10,15 @@ export class SensorService {
   // Base signal that updates with raw sensor data
   readonly rawSensor = signal(20); // Starting at 20°C
 
-  // Convert signal to observables with different transformations
-  readonly stabilizedTemp$: Observable<number> = toObservable(
-    this.rawSensor
-  ).pipe(debounceTime(500), distinctUntilChanged());
+  readonly rawSensor$ = toObservable(this.rawSensor);
 
-  readonly averageTemp$: Observable<number> = toObservable(this.rawSensor).pipe(
+  // Convert signal to observables with different transformations
+  readonly stabilizedTemp$: Observable<number> = this.rawSensor$.pipe(
+    debounceTime(500),
+    distinctUntilChanged()
+  );
+
+  readonly averageTemp$: Observable<number> = this.rawSensor$.pipe(
     // Calculate rolling average over last 5 readings
     map((current, index) => {
       this.readings.push(current);
@@ -26,9 +29,9 @@ export class SensorService {
     })
   );
 
-  readonly criticalAlert$: Observable<string | null> = toObservable(
-    this.rawSensor
-  ).pipe(map((temp) => (temp > 30 ? 'Temperature Critical!' : null)));
+  readonly criticalAlert$: Observable<string | null> = this.rawSensor$.pipe(
+    map((temp) => (temp > 30 ? 'Temperature Critical!' : null))
+  );
 
   private readings: number[] = [];
 

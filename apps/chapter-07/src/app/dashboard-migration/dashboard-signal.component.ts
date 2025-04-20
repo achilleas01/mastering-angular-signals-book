@@ -1,13 +1,7 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { interval } from 'rxjs';
-import { MetricsService } from './metrics.service';
+import { MetricsService, Metrics } from './metrics.service';
 import { MetricCardComponent } from './metric-card.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-interface Metric {
-  cpu: number;
-  memory: number;
-}
 
 @Component({
   selector: 'app-dashboard-signal',
@@ -33,34 +27,29 @@ interface Metric {
 export class DashboardSignalComponent {
   private metricsService = inject(MetricsService);
 
-  // Signal for metrics state
-  metrics = signal<Metric>({ cpu: 0, memory: 0 });
+  // Signal for metrics state with initial values
+  metrics = signal<Metrics>({
+    cpu: 0,
+    memory: 0,
+    trends: { cpu: 0, memory: 0 },
+  });
 
   // Computed signals for derived values
   cpuUsage = computed(() => this.metrics().cpu);
   memoryUsage = computed(() => this.metrics().memory);
 
-  // Signals for trends
-  cpuTrend = signal<number>(0);
-  memoryTrend = signal<number>(0);
+  // Computed signals for trends
+  cpuTrend = computed(() => this.metrics().trends.cpu);
+  memoryTrend = computed(() => this.metrics().trends.memory);
 
   constructor() {
-    interval(2000)
+    // Subscribe to the shared metrics stream
+    this.metricsService
+      .getMetrics()
       .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        console.log('inside interval');
-        // Update metrics
-        this.metricsService.getMetrics().subscribe((metrics) => {
-          this.metrics.set(metrics);
-
-          // Update trends
-          this.metricsService
-            .calculateTrend(metrics.cpu, 'cpu')
-            .subscribe((trend) => this.cpuTrend.set(trend));
-          this.metricsService
-            .calculateTrend(metrics.memory, 'memory')
-            .subscribe((trend) => this.memoryTrend.set(trend));
-        });
+      .subscribe((metrics) => {
+        // Update the metrics signal with the latest values including trends
+        this.metrics.set(metrics);
       });
   }
 }

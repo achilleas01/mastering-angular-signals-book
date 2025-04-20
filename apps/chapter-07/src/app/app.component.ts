@@ -4,11 +4,13 @@ import { appRoutes } from './app.routes';
 import {
   DrawerComponent,
   HeaderComponent,
+  ThemeDirective,
 } from '@modern-angular-signals-book/ui-lib';
 
 @Component({
   imports: [RouterModule, HeaderComponent, DrawerComponent],
   selector: 'app-root',
+  hostDirectives: [ThemeDirective],
   template: `
     <lib-drawer [links]="links">
       <lib-header title="Chapter 7" />
