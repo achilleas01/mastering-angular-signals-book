@@ -1,12 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterModule.forRoot([])],
+      imports: [AppComponent, RouterModule.forRoot([])],
     }).compileComponents();
   });
 
@@ -17,11 +16,5 @@ describe('AppComponent', () => {
     expect(
       compiled.querySelector('[data-testid="appTitle"]')?.textContent
     ).toContain('Chapter 8');
-  });
-
-  it(`should have as title 'chapter-08'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('chapter-08');
   });
 });

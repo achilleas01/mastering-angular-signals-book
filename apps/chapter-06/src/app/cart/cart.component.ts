@@ -1,7 +1,6 @@
 import { CurrencyPipe, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { CartService } from '@modern-angular-signals-book/ui-lib';
-import { CartItem } from 'libs/ui-lib/src/lib/ui-lib/types/cart.type';
+import { CartService, CartItem } from '@modern-angular-signals-book/ui-lib';
 
 @Component({
   selector: 'app-cart',

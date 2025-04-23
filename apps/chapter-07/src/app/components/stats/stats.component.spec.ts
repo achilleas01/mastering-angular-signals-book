@@ -12,6 +12,12 @@ describe('StatsComponent', () => {
 
     fixture = TestBed.createComponent(StatsComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('userStats', {
+      count: 100,
+      peak: 100,
+      average: 100,
+      sessions: 100,
+    });
     fixture.detectChanges();
   });
 

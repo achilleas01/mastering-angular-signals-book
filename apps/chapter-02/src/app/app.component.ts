@@ -15,6 +15,5 @@ import { appRoutes } from './app.routes';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'chapter-02';
   links = appRoutes.filter((r) => !!r.path);
 }

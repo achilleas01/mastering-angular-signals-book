@@ -12,6 +12,13 @@ describe('NotificationItemComponent', () => {
 
     fixture = TestBed.createComponent(NotificationItemComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('notification', {
+      id: 1,
+      title: 'Test Notification',
+      message: 'This is a test notification',
+      type: 'info',
+      date: new Date(),
+    });
     fixture.detectChanges();
   });
 

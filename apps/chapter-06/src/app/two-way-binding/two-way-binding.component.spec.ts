@@ -6,6 +6,18 @@ describe('TwoWayBindingComponent', () => {
   let fixture: ComponentFixture<TwoWayBindingComponent>;
 
   beforeEach(async () => {
+    // Mock window.crypto.randomUUID for Jest/jsdom environment
+    Object.defineProperty(window, 'crypto', {
+      value: { randomUUID: jest.fn() },
+      writable: true, // Ensure it can be modified by spyOn
+    });
+
+    jest
+      .spyOn(window.crypto, 'randomUUID')
+      .mockReturnValue(
+        '123' as `${string}-${string}-${string}-${string}-${string}`
+      );
+
     await TestBed.configureTestingModule({
       imports: [TwoWayBindingComponent],
     }).compileComponents();

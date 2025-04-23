@@ -12,6 +12,13 @@ describe('ProductsListComponent', () => {
 
     fixture = TestBed.createComponent(ProductsListComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('products', [
+      {
+        id: 1,
+        name: 'Product 1',
+        price: 100,
+      },
+    ]);
     fixture.detectChanges();
   });
 
