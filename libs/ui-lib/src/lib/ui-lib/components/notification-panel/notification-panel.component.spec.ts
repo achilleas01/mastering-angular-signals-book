@@ -12,6 +12,16 @@ describe('NotificationPanelComponent', () => {
 
     fixture = TestBed.createComponent(NotificationPanelComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('notifications', [
+      {
+        id: 1,
+        title: 'Test Notification',
+        message: 'This is a test notification',
+        type: 'info',
+        date: new Date(),
+      },
+    ]);
+    fixture.componentRef.setInput('notificationsCount', 100);
     fixture.detectChanges();
   });
 

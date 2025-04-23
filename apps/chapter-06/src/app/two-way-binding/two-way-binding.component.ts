@@ -1,7 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
-import { SearchBoxComponent } from '@modern-angular-signals-book/ui-lib';
+import {
+  ProductsListComponent,
+  SearchBoxComponent,
+} from '@modern-angular-signals-book/ui-lib';
 import { randProduct } from '@ngneat/falso';
-import { ProductsListComponent } from '../../../../../libs/ui-lib/src/lib/ui-lib/components/products-list/products-list.component';
 
 @Component({
   selector: 'app-two-way-binding',

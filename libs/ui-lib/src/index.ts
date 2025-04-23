@@ -13,3 +13,6 @@ export * from './lib/ui-lib/services/cart.service';
 
 // constants
 export * from './lib/ui-lib/constants/notifications.constant';
+
+// types
+export * from './lib/ui-lib/types/cart.type';
