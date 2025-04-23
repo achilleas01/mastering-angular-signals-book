@@ -107,11 +107,14 @@ export class DynamicShoppingCartComponent {
     this.cart.update((items) => items.filter((item) => item !== itemToRemove));
   }
 
-  updateQuantity(event: any, itemToUpdate: CartItem) {
+  updateQuantity(event: Event, itemToUpdate: CartItem) {
     this.cart.update((items) =>
       items.map((item) => {
         if (item === itemToUpdate) {
-          return { ...item, quantity: parseInt(event.target.value, 10) };
+          return {
+            ...item,
+            quantity: parseInt((event.target as HTMLInputElement).value, 10),
+          };
         }
         return item;
       })

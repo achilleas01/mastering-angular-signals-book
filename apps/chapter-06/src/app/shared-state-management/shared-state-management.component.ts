@@ -140,7 +140,7 @@ export class SharedStateManagementComponent {
     // Add effect to watch cart changes
     effect(() => {
       // This will trigger when any cart item changes
-      const items = this.cartService.items();
+      this.cartService.items();
       this.animationState.update((v) => v + 1);
     });
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, Observable, of } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 
 export interface WeatherData {
   temperature: number;

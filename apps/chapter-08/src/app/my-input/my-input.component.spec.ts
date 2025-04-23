@@ -42,10 +42,8 @@ describe('MyInputComponent', () => {
     fixture.componentRef.setInput('text', newValue);
     fixture.detectChanges();
 
-    const input = fixture.nativeElement.querySelector('input');
     const preview = fixture.nativeElement.querySelector('.preview');
 
-    // expect(input.value).toBe(newValue);
     expect(preview.textContent).toContain(newValue);
   });
 

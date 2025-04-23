@@ -20,7 +20,7 @@ export class SensorService {
 
   readonly averageTemp$: Observable<number> = this.rawSensor$.pipe(
     // Calculate rolling average over last 5 readings
-    map((current, index) => {
+    map((current) => {
       this.readings.push(current);
       if (this.readings.length > 5) {
         this.readings.shift();
