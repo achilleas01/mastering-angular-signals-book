@@ -1,82 +1,102 @@
-# ModernAngularSignalsBook
+# Modern Angular - Mastering Angular Signals: Code Examples
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This repository contains the source code examples for the book "Modern Angular - Mastering Angular Signals". Each chapter's code is organized into its own application within this Nx workspace.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+Find the book at: [https://codewithahsan.dev/books](https://codewithahsan.dev/books)
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Prerequisites
 
-## Finish your CI setup
+Before you begin, ensure you have the following installed:
+*   [Node.js](https://nodejs.org/) (LTS version recommended)
+*   npm (comes with Node.js)
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/dJIrP7KfWK)
+## Installation
 
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/ahsanayaz/modern-angular-signals-book
+    cd modern-angular-signals-book
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
 
-## Run tasks
+## Running Chapter Examples
 
-To run the dev server for your app, use:
+This repository uses [Nx](https://nx.dev) to manage the monorepo structure. You can serve individual chapter applications using the following commands:
 
-```sh
+```bash
+# Serve Chapter 1 application
 npx nx serve chapter-01
+
+# Serve Chapter 2 application
+npx nx serve chapter-02
+
+# Serve Chapter 3 application
+npx nx serve chapter-03
+
+# Serve Chapter 4 application
+npx nx serve chapter-04
+
+# Serve Chapter 5 application
+npx nx serve chapter-05
+
+# Serve Chapter 6 application
+npx nx serve chapter-06
+
+# Serve Chapter 7 application
+npx nx serve chapter-07
+
+# Serve Chapter 8 application
+npx nx serve chapter-08
 ```
 
-To create a production bundle:
+Replace `chapter-XX` with the desired chapter number. The application will typically be available at `http://localhost:4200/`.
 
-```sh
-npx nx build chapter-01
+## Running Tests
+
+### Unit Tests
+
+To run unit tests for a specific chapter's application:
+
+```bash
+# Test Chapter 1 application
+npx nx test chapter-01
+
+# Test Chapter 2 application
+npx nx test chapter-02
+
+# ... and so on for other chapters (up to chapter-08)
 ```
 
-To see all available targets to run for a project, run:
+### End-to-End (E2E) Tests
 
-```sh
-npx nx show project chapter-01
+To run E2E tests (using Playwright) for a specific chapter:
+
+```bash
+# E2E Test Chapter 1 application
+npx nx e2e chapter-01-e2e
+
+# E2E Test Chapter 2 application
+npx nx e2e chapter-02-e2e
+
+# ... and so on for other chapters (up to chapter-08-e2e)
 ```
+*Note: Ensure the corresponding chapter application is running (`npx nx serve chapter-XX`) before executing its E2E tests, or configure the E2E tests to start the dev server.*
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## Project Structure
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This workspace is organized as follows:
 
-## Add new projects
+*   `apps/`: Contains the individual Angular applications for each chapter (e.g., `chapter-01`, `chapter-02`, ..., `chapter-08`).
+    *   `apps/chapter-XX-e2e/`: Contains the Playwright E2E tests for the corresponding chapter application.
+*   `libs/`: Contains shared libraries used across different applications.
+    *   `ui-lib/`: A library for common UI components.
+    *   `common-pages/`: A library for common page layouts or components.
+*   Configuration files (`nx.json`, `package.json`, `tsconfig.base.json`, etc.) are located at the root.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+---
 
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Happy Coding!
+Muhammad Ahsan Ayaz
