@@ -1,7 +1,5 @@
-export interface CartItem {
-  id: string;
-  title: string;
-  price: number;
+import { Product } from '@ngneat/falso';
+
+export interface CartItem extends Product {
   quantity: number;
-  image: string;
 }

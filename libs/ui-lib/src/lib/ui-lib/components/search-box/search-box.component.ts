@@ -1,3 +1,4 @@
+// search-box.component.ts (ui-lib)
 import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -6,19 +7,18 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [FormsModule],
   template: `
-    <div class="form-control w-full max-w-xs">
-      <label for="searchInput" class="label">
-        <span class="label-text">Search Products</span>
-      </label>
+    <div class="form-control w-full flex gap-4 flex-col">
       <div class="join">
+        <!-- Two-way binding via model() -->
         <input
           id="searchInput"
           type="text"
-          placeholder="Type here..."
-          class="input input-bordered input-primary join-item w-full"
+          placeholder="Search products..."
+          class="input input-bordered input-primary join-item w-full focus:outline-none"
           [(ngModel)]="searchQuery"
         />
         <button class="btn btn-primary join-item">
+          <!-- Search Icon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -39,6 +39,6 @@ import { FormsModule } from '@angular/forms';
   `,
 })
 export class SearchBoxComponent {
-  // Using model() for two-way binding instead of @Input + @Output
+  // Exposes a signal for two-way binding [(searchQuery)]
   searchQuery = model('');
 }

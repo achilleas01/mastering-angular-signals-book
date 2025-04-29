@@ -16,3 +16,4 @@ export * from './lib/ui-lib/constants/notifications.constant';
 
 // types
 export * from './lib/ui-lib/types/cart.type';
+export * from './lib/ui-lib/types/notification.type';

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { EventsWithOutputsComponent } from './events-with-outputs.component';
+import { NotificationsPanelExampleComponent } from './notifications-panel-example.component';
 
 describe('EventsWithOutputsComponent', () => {
-  let component: EventsWithOutputsComponent;
-  let fixture: ComponentFixture<EventsWithOutputsComponent>;
+  let component: NotificationsPanelExampleComponent;
+  let fixture: ComponentFixture<NotificationsPanelExampleComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EventsWithOutputsComponent],
+      imports: [NotificationsPanelExampleComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventsWithOutputsComponent);
+    fixture = TestBed.createComponent(NotificationsPanelExampleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

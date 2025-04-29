@@ -6,6 +6,29 @@ export const appRoutes: Route[] = [
     pathMatch: 'full',
     redirectTo: 'reactive-inputs',
   },
+
+  {
+    path: 'notifications-panel-example',
+    loadComponent: () => {
+      return import(
+        './notifications-panel-example/notifications-panel-example.component'
+      ).then((m) => m.NotificationsPanelExampleComponent);
+    },
+    data: {
+      name: 'Notifications panel example',
+    },
+  },
+  {
+    path: 'shopping-cart-example',
+    loadComponent: () => {
+      return import(
+        './shopping-cart-example/shopping-cart-example.component'
+      ).then((m) => m.ShoppingCartExampleComponent);
+    },
+    data: {
+      name: 'Shopping cart example',
+    },
+  },
   {
     path: 'reactive-inputs',
     loadComponent: () => {
@@ -18,17 +41,6 @@ export const appRoutes: Route[] = [
     },
   },
   {
-    path: 'events-with-outputs',
-    loadComponent: () => {
-      return import('./events-with-outputs/events-with-outputs.component').then(
-        (m) => m.EventsWithOutputsComponent
-      );
-    },
-    data: {
-      name: 'Events with outputs',
-    },
-  },
-  {
     path: 'two-way-binding',
     loadComponent: () => {
       return import('./two-way-binding/two-way-binding.component').then(
@@ -37,17 +49,6 @@ export const appRoutes: Route[] = [
     },
     data: {
       name: 'Two way data binding',
-    },
-  },
-  {
-    path: 'shared-state-management',
-    loadComponent: () => {
-      return import(
-        './shared-state-management/shared-state-management.component'
-      ).then((m) => m.SharedStateManagementComponent);
-    },
-    data: {
-      name: 'Shared state with services',
     },
   },
   {

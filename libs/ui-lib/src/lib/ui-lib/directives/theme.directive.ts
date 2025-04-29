@@ -7,6 +7,8 @@ export class ThemeDirective implements OnInit {
   theme = input('synthwave');
 
   ngOnInit() {
-    document.documentElement.setAttribute('data-theme', this.theme());
+    if ('document' in globalThis) {
+      document.documentElement.setAttribute('data-theme', this.theme());
+    }
   }
 }

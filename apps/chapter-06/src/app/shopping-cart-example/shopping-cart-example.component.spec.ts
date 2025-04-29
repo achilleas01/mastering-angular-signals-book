@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SharedStateManagementComponent } from './shared-state-management.component';
+import { ShoppingCartExampleComponent } from './shopping-cart-example.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-describe('SharedStateManagementComponent', () => {
-  let component: SharedStateManagementComponent;
-  let fixture: ComponentFixture<SharedStateManagementComponent>;
+describe('ShoppingCartExampleComponent', () => {
+  let component: ShoppingCartExampleComponent;
+  let fixture: ComponentFixture<ShoppingCartExampleComponent>;
 
   beforeEach(async () => {
     // Mock window.crypto.randomUUID for Jest/jsdom environment
@@ -20,13 +20,13 @@ describe('SharedStateManagementComponent', () => {
       );
     await TestBed.configureTestingModule({
       imports: [
-        SharedStateManagementComponent,
+        ShoppingCartExampleComponent,
         RouterModule.forRoot([]),
         BrowserAnimationsModule,
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SharedStateManagementComponent);
+    fixture = TestBed.createComponent(ShoppingCartExampleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

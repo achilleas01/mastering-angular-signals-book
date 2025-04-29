@@ -9,6 +9,7 @@ import { randProduct } from '@ngneat/falso';
   selector: 'app-two-way-binding',
   imports: [SearchBoxComponent, ProductsListComponent],
   template: `
+    <!-- Using model() inside lib-search-box for two-way binding instead of @Input + @Output -->
     <lib-search-box [(searchQuery)]="searchTerm" />
     <lib-products-list [products]="filteredProducts()" />
   `,

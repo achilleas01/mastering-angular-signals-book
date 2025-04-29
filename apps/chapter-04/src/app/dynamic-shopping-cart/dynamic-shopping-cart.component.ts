@@ -19,21 +19,24 @@ interface CartItem {
           <p>Total Items: {{ totalItems() }}</p>
           <p class="max-w-fit">Total Price: {{ totalPrice() | currency }}</p>
         </div>
-        <ul class="menu">
+        <ul class="w-full flex flex-col gap-2">
           @for (item of cart(); track item) {
-          <li>
-            <div class="flex gap-2">
-              <span class="flex-1">{{ item.name }} {{ item.emoji }}</span> x
-              <input
-                type="number"
-                class="input input-bordered"
-                [value]="item.quantity"
-                style="width: 60px;"
-                (change)="updateQuantity($event, item)"
-              />
-              <span>{{ item.price * item.quantity | currency }}</span>
+          <li
+            class="text-center w-full grid grid-cols-5 gap-2 items-center justify-between"
+          >
+            <span class="w-1/3">{{ item.name }} {{ item.emoji }}</span>
+            <span>x</span>
+            <input
+              type="number"
+              class="input input-bordered"
+              [value]="item.quantity"
+              style="width: 60px;"
+              (change)="updateQuantity($event, item)"
+            />
+            <span>{{ item.price * item.quantity | currency }}</span>
+            <div class="text-right">
               <button
-                class="btn btn-square btn-error btn-sm"
+                class="btn btn-square btn-error btn-sm self-end"
                 (click)="remove(item)"
               >
                 <svg

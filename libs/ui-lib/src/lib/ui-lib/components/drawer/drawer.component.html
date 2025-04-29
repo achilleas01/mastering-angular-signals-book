@@ -17,7 +17,7 @@
           <a
             (click)="closeOnLinkClick() && drawerService.toggleDrawer()"
             routerLink="{{ item.path }}"
-            routerLinkActive="active"
+            routerLinkActive="active text-primary font-bold bg-base-100"
             >{{
           item.data?.['name'] || item.path
             }}</a
