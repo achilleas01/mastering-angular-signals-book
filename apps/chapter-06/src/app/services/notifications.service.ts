@@ -6,7 +6,7 @@ import {
 } from '@modern-angular-signals-book/ui-lib';
 
 @Injectable({ providedIn: 'root' })
-export class NotificationService {
+export class NotificationsService {
   // Private WritableSignal holding the array of notifications
   private _notifications = signal<Notification[]>(DUMMY_NOTIFICATIONS);
 

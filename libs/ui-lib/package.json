@@ -9,7 +9,8 @@
     "@angular/forms": "19.2.7",
     "vite": "6.3.2",
     "@analogjs/vite-plugin-angular": "1.14.1",
-    "@nx/vite": "20.8.0"
+    "@nx/vite": "20.8.0",
+    "date-fns": "^4.1.0"
   },
   "sideEffects": false
 }

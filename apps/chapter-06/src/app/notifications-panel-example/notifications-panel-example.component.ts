@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { NotificationPanelComponent } from '@modern-angular-signals-book/ui-lib';
-import { NotificationService } from '../services/notifications.service';
+import { NotificationsService } from '../services/notifications.service';
 
 @Component({
   selector: 'app-notifications-panel-example',
@@ -22,7 +22,7 @@ import { NotificationService } from '../services/notifications.service';
   styles: ``,
 })
 export class NotificationsPanelExampleComponent {
-  notificationsService = inject(NotificationService);
+  notificationsService = inject(NotificationsService);
   notifications = this.notificationsService.notifications;
   unreadNotificationsCount = computed(() => {
     return this.notifications().filter((noti) => !noti.read).length;
