@@ -19,3 +19,15 @@ interface User {
 export class ProfileComponent {
   user = input<User>();
 }
+
+@Component({
+  selector: 'app-profile-example',
+  template: ` <app-profile [user]="user"></app-profile> `,
+  imports: [ProfileComponent],
+})
+export class ProfileExampleComponent {
+  user: User = {
+    name: 'John Doe',
+    age: 30,
+  };
+}

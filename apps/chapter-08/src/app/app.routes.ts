@@ -43,7 +43,7 @@ export const appRoutes: Route[] = [
     path: 'profile',
     loadComponent: () => {
       return import('./profile/profile.component').then(
-        (m) => m.ProfileComponent
+        (m) => m.ProfileExampleComponent
       );
     },
     data: {
