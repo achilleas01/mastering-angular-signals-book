@@ -1,7 +1,7 @@
 <div
   class="notification()-item flex items-start gap-4 p-4 rounded-lg hover:bg-base-200 cursor-pointer"
   [class.bg-base-200]="!notification().read"
->
+  >
   <div class="flex-shrink-0">
     <div
       class="w-10 h-10 rounded-full flex items-center justify-center"
@@ -11,19 +11,19 @@
         'bg-red-500': notification().type === 'error',
         'bg-yellow-500': notification().type === 'warning'
       }"
-    >
+      >
       <svg
         class="w-5 h-5 text-white"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
-      >
+        >
         <path
           [attr.d]="getIconPath(notification().type)"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="2"
-        />
+          />
       </svg>
     </div>
   </div>
@@ -38,8 +38,9 @@
       {{ notification().timestamp }}
     </div>
   </div>
-  <div
-    *ngIf="!notification().read"
-    class="flex-shrink-0 w-2 h-2 bg-primary rounded-full"
-  ></div>
+  @if (!notification().read) {
+    <div
+      class="flex-shrink-0 w-2 h-2 bg-primary rounded-full"
+    ></div>
+  }
 </div>

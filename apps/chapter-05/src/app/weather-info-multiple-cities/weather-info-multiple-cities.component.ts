@@ -100,7 +100,7 @@ export class WeatherInfoComponent {
     WeatherData | undefined,
     WeatherResourceConfig | undefined
   >({
-    request: () => {
+    params: () => {
       if (this.weatherRequestState() === 'idle') {
         return undefined;
       }
@@ -110,11 +110,11 @@ export class WeatherInfoComponent {
         selectedCity: this.selectedCity(),
       };
     },
-    loader: async ({ abortSignal, request }) => {
-      if (!request) {
+    loader: async ({ abortSignal, params }) => {
+      if (!params) {
         return undefined;
       }
-      const { requestState, isMultiCityMode, selectedCity } = request;
+      const { requestState, isMultiCityMode, selectedCity } = params;
       const response = await new Promise<Response>((resolve) => {
         setTimeout(() => {
           const url = isMultiCityMode

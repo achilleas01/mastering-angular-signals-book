@@ -41,7 +41,7 @@ type WeatherRequestState = 'idle' | 'ready';
 export class WeatherInfoComponent {
   weatherRequestState = signal<WeatherRequestState>('idle');
   weatherResource = resource<WeatherData, WeatherRequestState | undefined>({
-    request: () => {
+    params: () => {
       if (this.weatherRequestState() === 'idle') {
         return undefined;
       }

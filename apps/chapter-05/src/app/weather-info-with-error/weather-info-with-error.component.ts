@@ -63,13 +63,13 @@ type WeatherRequestState = 'idle' | 'ready' | 'simulateError';
 export class WeatherInfoComponent {
   weatherRequestState = signal<WeatherRequestState>('idle');
   weatherResource = resource<WeatherData, WeatherRequestState | undefined>({
-    request: () => {
+    params: () => {
       if (this.weatherRequestState() === 'idle') {
         return undefined;
       }
       return this.weatherRequestState();
     },
-    loader: async ({ abortSignal, request: requestState }) => {
+    loader: async ({ abortSignal, params: requestState }) => {
       const response = await new Promise<Response>((resolve) => {
         setTimeout(() => {
           fetch('assets/weather.json', { signal: abortSignal }).then((r) =>

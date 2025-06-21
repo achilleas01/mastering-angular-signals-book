@@ -62,7 +62,7 @@ interface WeatherData {
 export class WeatherInfoComponent {
   weatherService = inject(WeatherService);
   weatherResource = rxResource<WeatherData, string>({
-    loader: () => {
+    stream: () => {
       return this.weatherService.getWeather().pipe(
         catchError(() => {
           throw new Error('Could not fetch data');

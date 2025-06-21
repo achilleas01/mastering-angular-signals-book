@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { delay, Observable } from 'rxjs';
 
@@ -12,7 +12,7 @@ export interface WeatherData {
   providedIn: 'root',
 })
 export class WeatherService {
-  constructor(private http: HttpClient) {}
+  http = inject(HttpClient);
 
   getWeather(): Observable<WeatherData> {
     // Simulate an API call with a delayed response

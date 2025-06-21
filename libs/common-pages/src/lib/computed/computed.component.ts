@@ -1,9 +1,9 @@
 import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'lib-computed',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './computed.component.html',
   styleUrl: './computed.component.scss',
 })

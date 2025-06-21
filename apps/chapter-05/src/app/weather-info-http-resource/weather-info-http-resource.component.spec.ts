@@ -1,16 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WeatherInfoHttpResourceComponent } from './weather-info-http-resource.component';
+import { WeatherInfoComponent } from './weather-info-http-resource.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('WeatherInfoHttpResourceComponent', () => {
-  let component: WeatherInfoHttpResourceComponent;
-  let fixture: ComponentFixture<WeatherInfoHttpResourceComponent>;
+  let component: WeatherInfoComponent;
+  let fixture: ComponentFixture<WeatherInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WeatherInfoHttpResourceComponent],
+      imports: [WeatherInfoComponent],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(WeatherInfoHttpResourceComponent);
+    fixture = TestBed.createComponent(WeatherInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

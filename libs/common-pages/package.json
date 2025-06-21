@@ -2,11 +2,10 @@
   "name": "@modern-angular-signals-book/common-pages",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0",
+    "@angular/core": "20.0.4",
     "vite": "6.3.2",
-    "@analogjs/vite-plugin-angular": "1.14.1",
-    "@nx/vite": "20.8.0"
+    "@analogjs/vite-plugin-angular": "^1.18.0",
+    "@nx/vite": "21.2.1"
   },
   "sideEffects": false
 }

@@ -1,11 +1,11 @@
 import { Component, computed, effect, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-signup-form',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule],
   template: `
     <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="form-group">
@@ -16,31 +16,35 @@ import { NgIf } from '@angular/common';
           name="email"
           placeholder="Email"
           required
-        />
-        <div class="error" *ngIf="emailErrors()" data-testid="emailError">
-          {{ emailErrors() }}
+          />
+          @if (emailErrors()) {
+            <div class="error" data-testid="emailError">
+              {{ emailErrors() }}
+            </div>
+          }
         </div>
-      </div>
-
-      <div class="form-group">
-        <input
-          type="password"
-          [ngModel]="password()"
-          (ngModelChange)="password.set($event)"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <div class="error" *ngIf="passwordErrors()" data-testid="passwordError">
-          {{ passwordErrors() }}
-        </div>
-      </div>
-
-      <button type="submit" [disabled]="!isFormValid()">
-        {{ submitButtonText() }}
-      </button>
-    </form>
-  `,
+    
+        <div class="form-group">
+          <input
+            type="password"
+            [ngModel]="password()"
+            (ngModelChange)="password.set($event)"
+            name="password"
+            placeholder="Password"
+            required
+            />
+            @if (passwordErrors()) {
+              <div class="error" data-testid="passwordError">
+                {{ passwordErrors() }}
+              </div>
+            }
+          </div>
+    
+          <button type="submit" [disabled]="!isFormValid()">
+            {{ submitButtonText() }}
+          </button>
+        </form>
+    `,
   styles: [
     `
       .form-group {
