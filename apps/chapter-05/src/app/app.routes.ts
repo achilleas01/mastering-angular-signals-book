@@ -46,4 +46,14 @@ export const appRoutes: Route[] = [
       name: 'resource() multiple cities',
     },
   },
+  {
+    path: 'weather-info-http-resource',
+    loadComponent: () =>
+      import(
+        './weather-info-http-resource/weather-info-http-resource.component'
+      ).then((m) => m.WeatherInfoComponent),
+    data: {
+      name: 'httpResource',
+    },
+  },
 ];
