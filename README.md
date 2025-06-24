@@ -1,3 +1,7 @@
+![Modern Angular - Mastering Angular Signals](public/images/modern-angular-signals.jpg)
+
+Find the book at: [Amazon](https://www.amazon.com/dp/B0FF9LSHJN/)
+
 # Modern Angular - Mastering Angular Signals: Code Examples
 
 This repository contains the source code examples for the book "Modern Angular - Mastering Angular Signals". Each chapter's code is organized into its own application within this Nx workspace.
