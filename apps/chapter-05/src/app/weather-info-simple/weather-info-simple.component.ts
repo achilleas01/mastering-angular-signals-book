@@ -1,3 +1,4 @@
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, resource } from '@angular/core';
 
 interface WeatherData {
@@ -37,8 +38,28 @@ interface WeatherData {
   `,
 })
 export class WeatherInfoComponent {
+
+  //strong glass weather service
+  private baseWeatherURL = 'https://api.stormglass.io/v2/weather/point';
+
+  private apiKey =
+    '62fb6c86-b6ed-11ef-8d8d-0242ac130003-62fb6cea-b6ed-11ef-8d8d-0242ac130003';
+
+
+
   weatherResource = resource<WeatherData, string>({
     loader: async ({ abortSignal }) => {
+
+     const headers = new HttpHeaders({
+        Authorization: this.apiKey,
+     });
+    //,pressure,cloudcover
+    const params = new HttpParams()
+      .set('lat', '38.05')
+      .set('lng', '23.80')
+      .set('params', 'airTemperature,precipitation,pressure,cloudCover')
+      .set('Authorization', this.apiKey);
+
       const response = await new Promise<Response>((resolve) => {
         setTimeout(() => {
           fetch('assets/weather.json', { signal: abortSignal }).then((r) =>
