@@ -1,14 +1,18 @@
 import { Component, resource, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type City = 'Stockholm' | 'Milan';
+type City = 'Athens' | 'Salonica';
 
-interface WeatherData {
-  temperature: number;
-  condition: string;
-  icon: string;
-  city?: City;
+interface WeatherDataAlerts {
+  alerts: any[]
+  city_name: string
+  country_code: string
+  lat: number
+  lon: number
+  state_code: string
+  timezone: string
 }
+
 
 type WeatherRequestState = 'idle' | 'ready' | 'simulateError';
 
@@ -24,7 +28,7 @@ type WeatherResourceConfig = {
   template: `
     <div class="card bg-base-200 w-96 shadow-xl mx-auto">
       <div class="card-body flex flex-col items-center gap-4">
-        <div class="form-control w-full">
+           <div class="form-control w-full">
           <label class="label cursor-pointer">
             <span class="label-text">Multicity</span>
             <input
@@ -46,7 +50,7 @@ type WeatherResourceConfig = {
           class="btn btn-block btn-primary btn-outline"
           (click)="getWeatherInfo()"
         >
-          Get Weather Info
+          Get Weather Info 11
         </button>
         }
         <button
@@ -75,29 +79,24 @@ type WeatherResourceConfig = {
           <span>{{ weatherResource.error() }}</span>
         </div>
         } @else if (weatherResource.value()) {
-        <img
-          [src]="weatherResource.value()?.icon"
-          class="w-20 object-fit"
-          alt="weather icon"
-        />
-        <p class="text-2xl">
-          Temperature: {{ weatherResource.value()?.temperature }}
-        </p>
-        <p class="text-xl">
-          Condition: {{ weatherResource.value()?.condition }}
-        </p>
-        }
-      </div>
-    </div>
+         <ul>
+         @for (item of weatherResource.value()?.alerts; track item) {
+          <li>{{ item }}</li>
+          } @empty {
+          <li>There are no items.</li>
+          }
+          </ul>
+}
   `,
 })
 export class WeatherInfoComponent {
+
   weatherRequestState = signal<WeatherRequestState>('idle');
   isMultiCityMode = signal<boolean>(false);
-  cities: City[] = ['Stockholm', 'Milan'];
+  cities: City[] = ['Athens', 'Salonica'];
   selectedCity = signal<City>(this.cities[0]);
   weatherResource = resource<
-    WeatherData | undefined,
+    WeatherDataAlerts | undefined,
     WeatherResourceConfig | undefined
   >({
     params: () => {
@@ -115,14 +114,26 @@ export class WeatherInfoComponent {
         return undefined;
       }
       const { requestState, isMultiCityMode, selectedCity } = params;
-      const response = await new Promise<Response>((resolve) => {
-        setTimeout(() => {
-          const url = isMultiCityMode
-            ? 'assets/weather-multi.json'
-            : 'assets/weather.json';
-          fetch(url, { signal: abortSignal }).then((r) => resolve(r));
-        }, 1500);
-      });
+
+
+        const parameters = {
+          lat: '38.05',
+          lon: '23.80',
+          key: '511b41d3baa14ef8b86b8c8e163f7493',
+          lang: 'EL',
+          units: 'M'
+        };
+
+        const alertsForecast = 'https://api.weatherbit.io/v2.0/alerts';
+
+        const queryString = new URLSearchParams(parameters).toString();
+        const urlWithParams = `${alertsForecast}?${queryString}`;
+
+          const response = await fetch(urlWithParams, {
+              method: 'GET', signal: abortSignal 
+        });
+
+
       if (!response.ok) {
         throw new Error('Could not fetch data');
       }
@@ -131,15 +142,15 @@ export class WeatherInfoComponent {
       }
       const data = await response.json();
       if (isMultiCityMode) {
-        const weatherInfo = (data as WeatherData[]).find(
-          (info) => info.city === selectedCity
+        const weatherInfo = (data as WeatherDataAlerts[]).find(
+          (info) => info.city_name === selectedCity
         );
         if (!weatherInfo) {
           throw new Error('Weather info not found');
         }
         return weatherInfo;
       }
-      return data as WeatherData;
+      return data as WeatherDataAlerts;
     },
   });
 

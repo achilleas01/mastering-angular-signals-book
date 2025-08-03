@@ -17,7 +17,7 @@ type WeatherRequestState = 'idle' | 'ready';
           class="btn btn-block btn-primary btn-outline"
           (click)="getWeatherInfo()"
         >
-          Fetch Weather
+          Fetch Weather {{ weatherRequestState() }}
         </button>
         @if (weatherResource.isLoading()) {
         <span class="loading loading-spinner loading-lg"></span>
